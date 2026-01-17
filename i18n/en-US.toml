@@ -1,0 +1,9 @@
+[errors.common]
+0     = "ok"
+10001 = "Invalid parameter"
+10002 = "Unauthorized"
+10003 = "Forbidden"
+10005 = "Internal server error"
+
+[errors.user]
+20001 = "User not found"
