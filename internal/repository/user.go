@@ -3,21 +3,17 @@ package repository
 import (
 	"errors"
 	"sync"
+
+	"github.com/google/uuid"
+	"github.com/yuolrui/gin-base/internal/model"
 )
 
-// 模拟数据库模型
-type User struct {
-	ID    string
-	Name  string
-	Email string
-}
-
 var (
-	users      = make(map[string]*User)
+	users      = make(map[string]*model.User)
 	usersMutex sync.Mutex
 )
 
-func FindUserByID(id string) (*User, error) {
+func FindUserByID(id string) (*model.User, error) {
 	usersMutex.Lock()
 	defer usersMutex.Unlock()
 
@@ -28,7 +24,7 @@ func FindUserByID(id string) (*User, error) {
 	return user, nil
 }
 
-func SaveUser(user *User) error {
+func SaveUser(user *model.User) error {
 	usersMutex.Lock()
 	defer usersMutex.Unlock()
 
@@ -41,5 +37,5 @@ func SaveUser(user *User) error {
 
 func generateID() string {
 	// 简单生成ID示例，实际建议用UUID或数据库自增
-	return "user_" + string(len(users)+1)
+	return "user_" + uuid.NewString()
 }
