@@ -1,8 +1,13 @@
 package middleware
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
-const LangKey = "lang"
+const (
+	LangKey  = "lang"
+	TransKey = "translator"
+)
 
 func Lang() gin.HandlerFunc {
 	return func(c *gin.Context) {

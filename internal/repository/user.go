@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"errors"
 	"sync"
 
 	"github.com/google/uuid"
+	"github.com/yuolrui/gin-base/internal/errno"
 	"github.com/yuolrui/gin-base/internal/model"
 )
 
@@ -19,7 +19,7 @@ func FindUserByID(id string) (*model.User, error) {
 
 	user, ok := users[id]
 	if !ok {
-		return nil, errors.New("user not found")
+		return nil, errno.ErrUserNotExist
 	}
 	return user, nil
 }

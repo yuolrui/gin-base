@@ -11,4 +11,18 @@ const (
 
 	// user
 	UserNotExist = 20001
+
+	ParamErr = 20002
 )
+
+// AllCodes 返回所有错误码列表，用于统一校验 i18n
+func AllCodes() []int {
+	return []int{
+		OK,
+		InvalidParam,
+		Unauthorized,
+		Forbidden,
+		InternalErr,
+		UserNotExist,
+	}
+}

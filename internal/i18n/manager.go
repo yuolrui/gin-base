@@ -5,8 +5,10 @@ import (
 	"sync"
 )
 
+const DefaultLang = "zh-CN"
+
 type Manager struct {
-	data map[string]map[int]string // lang -> code -> msg
+	data map[string]map[int]string
 }
 
 var (
@@ -14,28 +16,34 @@ var (
 	once sync.Once
 )
 
-func Init() *Manager {
+func Init() {
 	once.Do(func() {
 		mgr = &Manager{
 			data: make(map[string]map[int]string),
 		}
 	})
-	return mgr
 }
 
-func (m *Manager) Register(lang string, messages map[int]string) {
-	m.data[lang] = messages
+func Register(lang string, messages map[int]string) {
+	if mgr == nil {
+		panic("i18n not initialized")
+	}
+	if _, ok := mgr.data[lang]; ok {
+		panic("duplicated i18n register: " + lang)
+	}
+	mgr.data[lang] = messages
 }
 
-func (m *Manager) Get(lang string, code int) string {
-	if mp, ok := m.data[lang]; ok {
+func Get(lang string, code int) string {
+	if mp, ok := mgr.data[lang]; ok {
 		if msg, ok := mp[code]; ok {
 			return msg
 		}
 	}
-	// fallback
-	if mp, ok := m.data["zh-CN"]; ok {
-		return mp[code]
+	if mp, ok := mgr.data[DefaultLang]; ok {
+		if msg, ok := mp[code]; ok {
+			return msg
+		}
 	}
 	return fmt.Sprintf("unknown error (%d)", code)
 }
