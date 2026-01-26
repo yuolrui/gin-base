@@ -24,6 +24,7 @@ func ErrorHandler() gin.HandlerFunc {
 		lang, _ := c.Get(LangKey)
 		langStr, _ := lang.(string)
 
+		// validation错误
 		var valErrs validator.ValidationErrors
 		if errors.As(err, &valErrs) {
 			// 获取对应语言的翻译器
@@ -41,6 +42,7 @@ func ErrorHandler() gin.HandlerFunc {
 			return
 		}
 
+		// 其他自定义错误
 		var appErr *errno.AppError
 		if errors.As(err, &appErr) {
 			msg := i18n.Get(langStr, appErr.Code)

@@ -5,8 +5,7 @@ import (
 )
 
 const (
-	LangKey  = "lang"
-	TransKey = "translator"
+	LangKey = "lang"
 )
 
 func Lang() gin.HandlerFunc {
