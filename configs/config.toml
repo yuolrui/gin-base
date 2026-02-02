@@ -1,0 +1,13 @@
+[app]
+mode = "dev"
+addr = ":8080"
+
+[mysql]
+host = "127.0.0.1"
+port = 3306
+user = "root"
+password = "Root@sdwc21"
+database = "gin_base"
+charset = "utf8mb4"
+max_idle = 10
+max_open = 100
